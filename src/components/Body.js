@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext,useRef } from "react";
-import { restaurantList } from "../constants";
+import { restaurantList ,api} from "../constants";
 import RestaurantCard from "./RestrauntCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
@@ -26,7 +26,7 @@ const Body = () => {
 
   async function getRestraunts() {
     const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.8466937&lng=80.94616599999999&page_type=DESKTOP_WEB_LISTING"
+      api
     );
     // optional chaining
     const json = await data.json();
