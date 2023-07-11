@@ -1,5 +1,5 @@
-import { useState, useEffect, useContext,useRef } from "react";
-import { restaurantList } from "../constants";
+import { useState, useEffect, useContext, useRef } from "react";
+import { restaurantList, api } from "../constants";
 import RestaurantCard from "./RestrauntCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
@@ -25,9 +25,7 @@ const Body = () => {
   }, []);
 
   async function getRestraunts() {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.8466937&lng=80.94616599999999&page_type=DESKTOP_WEB_LISTING"
-    );
+    const data = await fetch(api);
     // optional chaining
     const json = await data.json();
     //  console.log(json);
@@ -56,7 +54,7 @@ const Body = () => {
   // if(filteredRestaurants?.length === 0) return <h1>No Restarunt match your Filter ... !</h1>
 
   return filteredRestaurants?.length === 0 ? (
-    <Shimmer/>
+    <Shimmer />
   ) : (
     <>
       <div className="bg-slate-50 flex-grow">
@@ -71,7 +69,7 @@ const Body = () => {
               onChange={(e) => {
                 setSearchText(e.target.value);
               }}
-              onKeyPress={(e) => {
+              onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   searchInputRef.current.blur(); // unfocus the input element
                   document.getElementById("search-btn").click(); // trigger the search button click event
@@ -79,9 +77,9 @@ const Body = () => {
               }}
             />
             <button
-             id="search-btn"
+              id="search-btn"
               className="p-3 "
-              data-testid ="search-btn"
+              data-testid="search-btn"
               onClick={() => {
                 // filter the data
                 const data = filterData(searchText, allRestaurants);
@@ -117,7 +115,7 @@ const Body = () => {
             }
           /> */}
         </div>
-        <div className="flex flex-wrap " data-testid = "res-list">
+        <div className="flex flex-wrap " data-testid="res-list">
           {filteredRestaurants.map((restaurant) => {
             return (
               <Link
