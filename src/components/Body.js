@@ -31,8 +31,8 @@ const Body = () => {
     //  console.log(json);
     setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
     setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+    // console.log(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
   }
-
   // COnditional Rendering
   // if restaurant is empty => Shimmer UI
   // if restraunt has data =>actual data UI
@@ -50,7 +50,6 @@ const Body = () => {
   // }
   // not render component (Early return )
   if (!allRestaurants) return null;
-
   // if(filteredRestaurants?.length === 0) return <h1>No Restarunt match your Filter ... !</h1>
 
   return filteredRestaurants?.length === 0 ? (
