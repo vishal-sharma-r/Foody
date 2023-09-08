@@ -15,7 +15,7 @@ class Profile extends React.Component {
   }
   async componentDidMount() {
     const data = await fetch(
-      "https://api.github.com/users/Vishal-Sharma-Rattan"
+      "https://api.github.com/users/Vishal-Sharma-R"
     );
     const json = await data?.json();
     this.setState({
@@ -46,7 +46,7 @@ class Profile extends React.Component {
             </p>
             <div className=" text-center w-full flex items-center justify-center mt-2">
               <a
-                href={"https://github.com/Vishal-Sharma-Rattan"}
+                href={"https://github.com/Vishal-Sharma-R"}
                 className="mb-2 pr-4 hover:scale-105"
                 target="_blank"
               >
