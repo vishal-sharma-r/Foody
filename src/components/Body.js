@@ -8,6 +8,7 @@ import { filterData } from "../utils/helper";
 import useOnline from "../utils/useOnline";
 
 import UserContext from "../utils/UserContext";
+import FilteredRestraunt from "./FilteredRestraunt";
 // Body Component for body section: It contain all restaurant cards
 // We are mapping restaurantList array and passing JSON data to RestaurantCard component as props with unique key as index
 const Body = () => {
@@ -25,17 +26,32 @@ const Body = () => {
   }, []);
 
   async function getRestraunts() {
-    const data = await fetch(api);
-    // optional chaining
-    const json = await data.json();
-    //  console.log(json);
-    // setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
-    // setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+    try {
+      const data = await fetch(api);
+      const json = await data.json();
+      // optional chaining
+      console.log(json);
+      // setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+      // setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
 
-    setAllRestaurants(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-    setFilteredRestaurants(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+      setAllRestaurants(
+        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants
+      );
+      setFilteredRestaurants(
+        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants
+        // json?.data?.cards[0]
+      );
 
-     console.log(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+      console.log(
+        json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants
+      );
+    } catch (error) {
+      console.log("Enable cors extension");
+    }
+   
   }
   // COnditional Rendering
   // if restaurant is empty => Shimmer UI
@@ -56,8 +72,10 @@ const Body = () => {
   if (!allRestaurants) return null;
   // if(filteredRestaurants?.length === 0) return <h1>No Restarunt match your Filter ... !</h1>
 
-  return filteredRestaurants?.length === 0 ? (
+  return allRestaurants?.length === 0 ? (
     <Shimmer />
+  ) : filteredRestaurants.length === 0 ? (
+    <FilteredRestraunt />
   ) : (
     <>
       <div className="bg-slate-50 flex-grow">

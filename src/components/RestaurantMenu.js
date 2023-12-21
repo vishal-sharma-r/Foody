@@ -1,17 +1,10 @@
-
-
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
- 
-  MENU_ITEM_TYPE_KEY,
-  RESTAURANT_TYPE_KEY,
-} from "../constants";
+import { MENU_ITEM_TYPE_KEY, RESTAURANT_TYPE_KEY } from "../constants";
 // import useRestaurant from "../utils/useRestaurant";
 import Shimmer from "./Shimmer";
 import { addItem, decreamentItem } from "../utils/cartSlice";
-import { useDispatch } from "react-redux";
-
+import { useDispatch ,useSelector} from "react-redux";
 const RestaurantMenu = () => {
   const { resId } = useParams(); // call useParams and get value of restaurant id using object destructuring
   const [restaurant, setRestaurant] = useState(null); // call useState to store the api data in res
@@ -22,7 +15,10 @@ const RestaurantMenu = () => {
 
   async function getRestaurantInfo() {
     try {
-      const response = await fetch("https://corsproxy.io/?https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=26.8466937&lng=80.94616599999999&restaurantId=" + resId);
+      const response = await fetch(
+        "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=26.8466937&lng=80.94616599999999&restaurantId=" +
+          resId
+      );
       const json = await response.json();
 
       // Set restaurant data
@@ -65,8 +61,20 @@ const RestaurantMenu = () => {
   const handleDecFoodItem = (item) => {
     disptach(decreamentItem(item));
   };
- console.log(restaurant)
 
+  console.log(restaurant);
+  const cartItems = useSelector((store) => store.cart.items);
+  const getItemCount = (item) => {
+    const currentItem = cartItems.find((cartItem) => cartItem.id === item.id);
+    return currentItem ? currentItem.quantity : 0;
+  };
+  const getTotal = () => {
+    let total = 0;
+    cartItems.forEach((item) => {
+      total += item?.price * getItemCount(item);
+    });
+    return total;
+  };
   return !restaurant ? (
     <Shimmer />
   ) : (
@@ -75,7 +83,10 @@ const RestaurantMenu = () => {
         {/* {console.log(restaurant?.data?.cards[0]?.card?.card?.info?.name)} */}
         <img
           className="w-80 h-52 rounded-lg"
-          src={"https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_1024/" + restaurant?.cloudinaryImageId}
+          src={
+            "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_1024/" +
+            restaurant?.cloudinaryImageId
+          }
           alt={restaurant?.name}
         />
         <h2>
@@ -111,7 +122,7 @@ const RestaurantMenu = () => {
 
       <div className="flex">
         <div className="bg-white w-2/3 m-auto font-poppins flex p-3 justify-center">
-          <h1 >
+          <h1>
             <span className="text-2xl pt-4 font-bold">Recommended </span>
             <p className="text-xs font-thin ">{menuItems.length} ITEMS</p>
             <ul>
@@ -127,9 +138,9 @@ const RestaurantMenu = () => {
                     <div className="text-sm">
                       {item?.price > 0
                         ? new Intl.NumberFormat("en-IN", {
-                          style: "currency",
-                          currency: "INR",
-                        }).format(item?.price / 100)
+                            style: "currency",
+                            currency: "INR",
+                          }).format(item?.price / 100)
                         : " "}{" "}
                     </div>
                     <div className="text-[#666666] max-sm:mb-2 text-sm max-sm:text-sm">
@@ -139,7 +150,10 @@ const RestaurantMenu = () => {
                   <div className=" w-28 flex flex-col justify-between items-center gap-3">
                     <img
                       className="w-40 h-auto max-sm:max-w-[100px]  max-sm:aspect-auto"
-                      src={"https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_1024/" + item?.imageId}
+                      src={
+                        "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_1024/" +
+                        item?.imageId
+                      }
                       alt={item?.name}
                     />
                     <div className="flex justify-between font-poppins w-20 border bg-slate-50 text-black py-[2px] px-2 cursor-pointer ">
@@ -147,6 +161,7 @@ const RestaurantMenu = () => {
                         {" "}
                         -{" "}
                       </button>
+                      <span>{getItemCount(item)}</span>
                       <button onClick={() => handleAddFoodItem(item)}>
                         {" "}
                         +{" "}

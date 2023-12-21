@@ -89,17 +89,18 @@ const AppLayout = () => {
   return (
     //  reactFragment Because we doesnot use the multiple parent
     <>
-    <Provider store= {store}>
-      <UserContext.Provider
-        value={{
-          user: user,
-          setUser:setUser,
-        }}
-      >
-        <Header />
-        <Outlet />
-        <Footer />
-      </UserContext.Provider>
+      <Provider store={store}>
+        <UserContext.Provider
+          value={{
+            user: user,
+            setUser: setUser,
+          }}
+        >
+          
+          <Header />
+          <Outlet />
+          <Footer />
+        </UserContext.Provider>
       </Provider>
     </>
   );
@@ -122,17 +123,17 @@ const appRoute = createBrowserRouter([
         children: [
           {
             path: "profile",
-            element: <ProfileClass/>,
+            element: <ProfileClass />,
           },
         ],
       },
       {
         path: "/contact",
-        element: <Help/>,
+        element: <Help />,
       },
       {
         path: "/cart",
-        element: <CartPage/>,
+        element: <CartPage />,
       },
       {
         path: "/checkout",
@@ -148,7 +149,7 @@ const appRoute = createBrowserRouter([
       },
       {
         path: "Help",
-        element: <Help/>,
+        element: <Help />,
       },
       {
         path: "/instamart",
@@ -168,4 +169,4 @@ const appRoute = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 // rendering the container
-root.render(<RouterProvider router={appRoute}/>);
+root.render(<RouterProvider router={appRoute} />);
