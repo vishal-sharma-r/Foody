@@ -4,12 +4,12 @@ const RestaurantCard = ({
   name,
   cuisines,
   cloudinaryImageId,
-  area,
-  lastMileTravelString,
-  costForTwoString,
+  sla,
+  costForTwo,
   avgRating,
 }) => {
   return (
+  
     <div className="flex flex-col overflow-hidden m-3 p-3 w-72  rounded-sm hover:shadow-xl font-poppins bg-white shadow-sm hover:scale-110 transition-all duration-500">
       <img
         className="w-full border rounded-sm "
@@ -33,8 +33,8 @@ const RestaurantCard = ({
         {avgRating} &#9733;
       </span>
       <div className="flex gap-20  mt-5 ">
-        <span className="font-medium">{costForTwoString}</span>
-        <span className="font-medium">{lastMileTravelString}</span>
+        <span className="font-medium">{costForTwo}</span>
+        <span className="font-medium">{sla?.lastMileTravelString}</span>
       </div>
     </div>
   );

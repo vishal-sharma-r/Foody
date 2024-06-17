@@ -30,7 +30,7 @@ const Body = () => {
       const data = await fetch(api);
       const json = await data.json();
       // optional chaining
-      console.log(json);
+      // console.log(json);
       // setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
       // setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
 
@@ -44,13 +44,13 @@ const Body = () => {
         // json?.data?.cards[0]
       );
 
-      console.log(
-        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-          ?.restaurants
-      );
+      // console.log(
+      //   json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants[0].info
+      // );
     } catch (error) {
       console.log("Enable cors extension");
     }
+    // https://thingproxy.freeboard.io/fetch/
    
   }
   // COnditional Rendering

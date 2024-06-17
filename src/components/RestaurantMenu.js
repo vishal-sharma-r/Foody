@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { MENU_ITEM_TYPE_KEY, RESTAURANT_TYPE_KEY } from "../constants";
+import { IMG_CDN_URL, MENU_ITEM_TYPE_KEY, RESTAURANT_TYPE_KEY } from "../constants";
 // import useRestaurant from "../utils/useRestaurant";
 import Shimmer from "./Shimmer";
 import { addItem, decreamentItem } from "../utils/cartSlice";
@@ -84,7 +84,7 @@ const RestaurantMenu = () => {
         <img
           className="w-80 h-52 rounded-lg"
           src={
-            "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_1024/" +
+            IMG_CDN_URL +
             restaurant?.cloudinaryImageId
           }
           alt={restaurant?.name}
@@ -151,7 +151,7 @@ const RestaurantMenu = () => {
                     <img
                       className="w-40 h-auto max-sm:max-w-[100px]  max-sm:aspect-auto"
                       src={
-                        "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_1024/" +
+                        IMG_CDN_URL +
                         item?.imageId
                       }
                       alt={item?.name}

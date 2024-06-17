@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { IMG_CDN_URL } from "../constants";
 const FilteredRestraunt = () => {
   return (
     <div className="flex h-screen justify-center  bg-slate-50">
@@ -7,7 +8,7 @@ const FilteredRestraunt = () => {
         <img
           className="w-96"
           src={
-            "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/2xempty_cart_yfxml0"
+            IMG_CDN_URL+"2xempty_cart_yfxml0"
           }
           alt="empty cart"
         />

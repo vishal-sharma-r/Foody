@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { clearCart } from "../utils/cartSlice";
 import Cart from "./Cart";
+import { IMG_CDN_URL } from "../constants";
 
 
 
@@ -21,7 +22,7 @@ return (
           <img
             className="w-96"
             src={
-              "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/2xempty_cart_yfxml0"
+              IMG_CDN_URL+"/2xempty_cart_yfxml0"
             }
             alt="empty cart"
           />

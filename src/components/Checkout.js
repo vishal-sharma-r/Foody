@@ -6,6 +6,7 @@ import Cart from "./Cart";
 import { TbDiscount2 } from "react-icons/tb";
 import StripeCheckout from "react-stripe-checkout";
 import { clearCart } from "../utils/cartSlice";
+import { IMG_CDN_URL } from "../constants";
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ const Checkout = () => {
           <img
             className="w-96"
             src={
-              "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/2xempty_cart_yfxml0"
+              IMG_CDN_URL +"/2xempty_cart_yfxml0"
             }
             alt="empty cart"
           />
