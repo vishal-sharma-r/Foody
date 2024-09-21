@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { IMG_CDN_URL, MENU_ITEM_TYPE_KEY, RESTAURANT_TYPE_KEY } from "../constants";
+import {
+  IMG_CDN_URL,
+  MENU_ITEM_TYPE_KEY,
+  RESTAURANT_TYPE_KEY,
+} from "../constants";
 // import useRestaurant from "../utils/useRestaurant";
 import Shimmer from "./Shimmer";
 import { addItem, decreamentItem } from "../utils/cartSlice";
-import { useDispatch ,useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { ResItemsData, recomendedData } from "../constants";
 const RestaurantMenu = () => {
   const { resId } = useParams(); // call useParams and get value of restaurant id using object destructuring
   const [restaurant, setRestaurant] = useState(null); // call useState to store the api data in res
@@ -47,9 +52,25 @@ const RestaurantMenu = () => {
       });
       setMenuItems(uniqueMenuItems);
     } catch (error) {
-      setMenuItems([]);
-      setRestaurant(null);
-      console.log(error);
+      // setMenuItems([]);
+      // setRestaurant(null);
+
+      // New hard corded menu items
+      const restaurantData =
+        ResItemsData[0]?.data?.cards
+          ?.map((x) => x.card)
+          ?.find((x) => x && x.card["@type"] === RESTAURANT_TYPE_KEY)?.card
+          ?.info || null;
+      console.log(restaurantData);
+      setRestaurant(restaurantData);
+      // Set menu item data
+      console.log(recomendedData);
+      const uniqueMenuItems = [];
+      recomendedData[0].map((item) => {
+        uniqueMenuItems.push(item);
+      });
+      setMenuItems(uniqueMenuItems);
+      console.log(error + "from REst menu");
     }
   }
 
@@ -83,10 +104,7 @@ const RestaurantMenu = () => {
         {/* {console.log(restaurant?.data?.cards[0]?.card?.card?.info?.name)} */}
         <img
           className="w-80 h-52 rounded-lg"
-          src={
-            IMG_CDN_URL +
-            restaurant?.cloudinaryImageId
-          }
+          src={IMG_CDN_URL + restaurant?.cloudinaryImageId}
           alt={restaurant?.name}
         />
         <h2>
@@ -150,10 +168,7 @@ const RestaurantMenu = () => {
                   <div className=" w-28 flex flex-col justify-between items-center gap-3">
                     <img
                       className="w-40 h-auto max-sm:max-w-[100px]  max-sm:aspect-auto"
-                      src={
-                        IMG_CDN_URL +
-                        item?.imageId
-                      }
+                      src={IMG_CDN_URL + item?.imageId}
                       alt={item?.name}
                     />
                     <div className="flex justify-between font-poppins w-20 border bg-slate-50 text-black py-[2px] px-2 cursor-pointer ">

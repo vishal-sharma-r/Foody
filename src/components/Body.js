@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, useRef } from "react";
-import { restaurantList, api } from "../constants";
+import { restaurantList, api, restaurants } from "../constants";
 import RestaurantCard from "./RestrauntCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
@@ -49,9 +49,13 @@ const Body = () => {
       // );
     } catch (error) {
       console.log("Enable cors extension");
+      setAllRestaurants(restaurants);
+      setFilteredRestaurants(
+        restaurants
+        // json?.data?.cards[0]
+      );
     }
     // https://thingproxy.freeboard.io/fetch/
-   
   }
   // COnditional Rendering
   // if restaurant is empty => Shimmer UI

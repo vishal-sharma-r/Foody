@@ -24,6 +24,7 @@ import CartPage from "./components/CartPage";
 import Checkout from "./components/Checkout";
 import Success from "./components/Success";
 import Help from "./components/Help";
+import Layout from "./Layout";
 /******
 * header
     Logo
@@ -96,10 +97,10 @@ const AppLayout = () => {
             setUser: setUser,
           }}
         >
-          
-          <Header />
+          {/* <Header />
           <Outlet />
-          <Footer />
+          <Footer /> */}
+          <Layout/>
         </UserContext.Provider>
       </Provider>
     </>
